@@ -248,23 +248,25 @@ class Magma:
         assert len(expr) == 1
         self._do_evaluate_expr(expr[0])
 
-    @pynvim.command("MagmaEvaluateVisual", sync=True)  # type: ignore
+    # type: ignore
+    @pynvim.command("MagmaEvaluateRange", range=True, sync=True)
     @nvimui  # type: ignore
-    def command_evaluate_visual(self) -> None:
-        _, lineno_begin, colno_begin, _ = self.nvim.funcs.getpos("'<")
-        _, lineno_end, colno_end, _ = self.nvim.funcs.getpos("'>")
+    def command_evaluate_range(self, _args, rng) -> None:
+        start_line = rng[0]["lnum"]
+        start_col = rng[0]["col"]
+        end_line = rng[1]["lnum"]
+        end_col = rng[1]["col"]
         span = (
             (
-                lineno_begin - 1,
-                min(colno_begin, len(self.nvim.funcs.getline(lineno_begin)))
+                start_line - 1,
+                min(start_col, len(self.nvim.funcs.getline(start_line)))
                 - 1,
             ),
             (
-                lineno_end - 1,
-                min(colno_end, len(self.nvim.funcs.getline(lineno_end))),
+                end_line - 1,
+                min(end_col, len(self.nvim.funcs.getline(end_line)))
             ),
         )
-
         self._do_evaluate(span)
 
     @pynvim.command("MagmaEvaluateOperator", sync=True)  # type: ignore

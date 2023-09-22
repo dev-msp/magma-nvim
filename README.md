@@ -50,7 +50,7 @@ If you want a quickstart, these are the author's suggestions of mappings and opt
 ```vim
 nnoremap <silent><expr> <LocalLeader>r  :MagmaEvaluateOperator<CR>
 nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
+vnoremap <silent>       <LocalLeader>r  :MagmaEvaluateRange<CR>
 nnoremap <silent>       <LocalLeader>rc :MagmaReevaluateCell<CR>
 nnoremap <silent>       <LocalLeader>rd :MagmaDelete<CR>
 nnoremap <silent>       <LocalLeader>ro :MagmaShowOutput<CR>
@@ -154,14 +154,14 @@ Example usage:
 :MagmaEvaluateLine
 ```
 
-#### MagmaEvaluateVisual
+#### MagmaEvaluateRange
 
-Evaluate the selected text.
+Evaluate the specified range. Supports visual selection (`'<,'>`) as well as other ranges (`:help cmdline-ranges`).
 
 Example usage (after having selected some text):
 
 ```vim
-:MagmaEvaluateVisual
+:MagmaEvaluateRange
 ```
 
 #### MagmaEvaluateOperator
@@ -288,7 +288,7 @@ It is recommended to map all the evaluate commands to the same mapping (in diffe
 ```vim
 nnoremap <expr><silent> <LocalLeader>r  nvim_exec('MagmaEvaluateOperator', v:true)
 nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
+vnoremap <silent>       <LocalLeader>r  :MagmaEvaluateRange<CR>
 nnoremap <silent>       <LocalLeader>rc :MagmaReevaluateCell<CR>
 ```
 
