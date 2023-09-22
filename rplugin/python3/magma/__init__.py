@@ -249,9 +249,9 @@ class Magma:
         self._do_evaluate_expr(expr[0])
 
     # type: ignore
-    @pynvim.command("MagmaEvaluateRange", range=True, sync=True)
+    @pynvim.command("MagmaEvaluateRange", nargs=0, range=True, sync=True)
     @nvimui  # type: ignore
-    def command_evaluate_range(self, _args, rng) -> None:
+    def command_evaluate_range(self, rng) -> None:
         start_line = rng[0]["lnum"]
         start_col = rng[0]["col"]
         end_line = rng[1]["lnum"]
