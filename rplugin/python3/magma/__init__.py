@@ -252,21 +252,9 @@ class Magma:
     @pynvim.command("MagmaEvaluateRange", nargs=0, range=True, sync=True)
     @nvimui  # type: ignore
     def command_evaluate_range(self, rng) -> None:
-        start_line = rng[0]["lnum"]
-        start_col = rng[0]["col"]
-        end_line = rng[1]["lnum"]
-        end_col = rng[1]["col"]
-        span = (
-            (
-                start_line - 1,
-                min(start_col, len(self.nvim.funcs.getline(start_line)))
-                - 1,
-            ),
-            (
-                end_line - 1,
-                min(end_col, len(self.nvim.funcs.getline(end_line)))
-            ),
-        )
+        start_line = rng[0]
+        end_line = rng[1]
+        span = ((start_line - 1, 0), (end_line - 1, -1))
         self._do_evaluate(span)
 
     @pynvim.command("MagmaEvaluateOperator", sync=True)  # type: ignore
